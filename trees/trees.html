@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="trees.css">
     <title>Trees</title>
 </head>
 <body>
-    
+    <div id="button-container">
+        <button onclick="add_node()">Add node below</button>
+        <button onclick="delete_node()">Delete node below</button>
+        <button onclick="go_up()">Go up</button>
+        <button onclick="go_down()">Go down</button>
+    </div>
+    <div id="tree-container">
+        <div class="level" id="0">
+            <div class="node">root</div>
+        </div>
+        <!--
+        <div class="level" id="1">
+            <div class="node"></div>
+            <div class="node"></div>
+        </div>
+        -->
+    </div>
+    <script src="trees.js"></script>
 </body>
 </html>
