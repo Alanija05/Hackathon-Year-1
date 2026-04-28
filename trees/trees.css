@@ -1,10 +1,10 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-#tree-container{
+#tree-container {
     height: 100vh;
     width: 100vw;
     border: 2px blue solid;
@@ -13,14 +13,25 @@
     gap: 10px;
 }
 
-.node{
+.node {
     height: 50px;
     width: 50px;
     background-color: grey;
 }
 
-.level{
+.level {
     border: 2px pink solid;
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
+}
+
+.level-container {
+    border: 2px green solid;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+.back-to-main-menu {
+    margin-right: 30vw;
 }
