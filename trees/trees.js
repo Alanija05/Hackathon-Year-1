@@ -16,6 +16,9 @@ function check_current_node(){
 }
 
 
+
+// Functions to go up and down
+
 function go_up(){
     if (current_level_id == 0){
         alert("At root level. Cannot go further up")
@@ -66,6 +69,10 @@ function go_down(){
     check_current_node()
 }
 
+
+
+// Functions to go right and left
+
 function go_right(){
     var current_level = document.getElementById(String(current_level_id))
     var nodes = current_level.getElementsByClassName("node")
@@ -89,10 +96,11 @@ function go_right(){
 function go_left(){
     var current_level = document.getElementById(String(current_level_id))
     var nodes = current_level.getElementsByClassName("node")
-    //if (current_node_id < 0){
-    //    alert("At first node. Cannot go further left")
-    //    return
-    //}
+
+    if (current_node_id < 1){
+        alert("At first node. Cannot go further left")
+        return
+    }
 
     // Set current node back to original style
     var current_node = nodes[current_node_id]
@@ -105,9 +113,28 @@ function go_left(){
     check_current_node()
 }
 
+
+
+// Functions to add nodes and levels
+
+function make_new_level(){
+    var next_level = document.createElement('div');
+    next_level.setAttribute('class', 'level');
+    next_level.setAttribute('id', current_level_id+1);
+    
+    if (current_level_id == 2){
+        next_level.style.width = `${100/current_level_id}vw`;
+    } else {
+        next_level.style.width = `${100/current_level_id**2}vw`;
+    }
+
+    return next_level
+}
+
 function make_new_node(){
     var new_node = document.createElement('div');
     new_node.setAttribute('class', 'node');
+
     return new_node;
 }
 
@@ -120,10 +147,10 @@ function add_node(){
         var nodes = next_level.getElementsByClassName('node');
 
         // Check if there are no more than 2 nodes for each parent node
-        if (nodes.length > 1){
+        /*if (nodes.length > 1){
             alert("Max amount of nodes reached for parent node")
             return
-        }
+        }*/
 
         // Make new node
         var new_node = make_new_node();
@@ -133,9 +160,7 @@ function add_node(){
 
     } catch (error) {
         // Make next level
-        var next_level = document.createElement('div');
-        next_level.setAttribute('class', 'level');
-        next_level.setAttribute('id', current_level_id+1);
+        var next_level = make_new_level()
 
         // Add next level to tree container
         tree_container.appendChild(next_level);
