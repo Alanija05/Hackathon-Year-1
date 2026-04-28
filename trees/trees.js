@@ -30,6 +30,8 @@ function go_up(){
     var current_node = current_level.getElementsByClassName("node")[current_node_id]
     current_node.style.border = 'none'
 
+    // Set current node id back to 0
+    current_node_id = 0
 
     // Increment current level id
     current_level_id -= 1
@@ -37,9 +39,6 @@ function go_up(){
     // Set style of new level and new node
     check_current_level()
     check_current_node()
-
-    // Check for directional buttons
-    check_for_lateral_movement()
 }
 
 function go_down(){
@@ -56,15 +55,54 @@ function go_down(){
     var current_node = current_level.getElementsByClassName("node")[current_node_id]
     current_node.style.border = 'none'
 
+    // Set current node id back to 0
+    current_node_id = 0
+
     // Increment current level id
     current_level_id += 1
 
     // Set style of new level and new node
     check_current_level()
     check_current_node()
+}
 
-    // Check for directional buttons
-    check_for_lateral_movement()
+function go_right(){
+    var current_level = document.getElementById(String(current_level_id))
+    var nodes = current_level.getElementsByClassName("node")
+
+    if (current_node_id >= nodes.length-1){
+        alert("At last node. Cannot go further right")
+        return
+    }
+
+    // Set current node back to original style
+    var current_node = nodes[current_node_id]
+    current_node.style.border = 'none'
+
+    // Increment current node id
+    current_node_id += 1
+
+    // Set style of new node
+    check_current_node()
+}
+
+function go_left(){
+    var current_level = document.getElementById(String(current_level_id))
+    var nodes = current_level.getElementsByClassName("node")
+    //if (current_node_id < 0){
+    //    alert("At first node. Cannot go further left")
+    //    return
+    //}
+
+    // Set current node back to original style
+    var current_node = nodes[current_node_id]
+    current_node.style.border = 'none'
+
+    // Increment current node id
+    current_node_id -= 1
+
+    // Set style of new node
+    check_current_node()
 }
 
 function make_new_node(){
