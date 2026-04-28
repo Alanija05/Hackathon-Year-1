@@ -1,11 +1,20 @@
 // Nodes will be on levels. One level can hold many nodes. When a child node is to be added, the code checks first if the level exists. Level 0 contains only one node
 var current_level_id = 0
+var current_node_id = 0
 const tree_container = document.getElementById('tree-container')
 
 function check_current_level(){
     var current_level = document.getElementById(String(current_level_id))
     current_level.style.border = '2px red solid'
 }
+
+function check_current_node(){
+    var current_level = document.getElementById(String(current_level_id));
+    var nodes = current_level.getElementsByClassName("node");
+    var current_node = nodes[current_node_id];
+    current_node.style.border = '2px orange solid';
+}
+
 
 function go_up(){
     if (current_level_id == 0){
@@ -17,11 +26,20 @@ function go_up(){
     var current_level = document.getElementById(String(current_level_id))
     current_level.style.border = '2px pink solid'
 
+    // Set current node back to original style
+    var current_node = current_level.getElementsByClassName("node")[current_node_id]
+    current_node.style.border = 'none'
+
+
     // Increment current level id
     current_level_id -= 1
 
-    // Set style of new level
+    // Set style of new level and new node
     check_current_level()
+    check_current_node()
+
+    // Check for directional buttons
+    check_for_lateral_movement()
 }
 
 function go_down(){
@@ -34,11 +52,19 @@ function go_down(){
     var current_level = document.getElementById(String(current_level_id))
     current_level.style.border = '2px pink solid'
 
+     // Set current node back to original style
+    var current_node = current_level.getElementsByClassName("node")[current_node_id]
+    current_node.style.border = 'none'
+
     // Increment current level id
     current_level_id += 1
 
-    // Set style of new level
+    // Set style of new level and new node
     check_current_level()
+    check_current_node()
+
+    // Check for directional buttons
+    check_for_lateral_movement()
 }
 
 function make_new_node(){
@@ -51,6 +77,15 @@ function add_node(){
     try{
         // Find next level
         var next_level = document.getElementById(String(current_level_id+1));
+
+        // Get all nodes in next level
+        var nodes = next_level.getElementsByClassName('node');
+
+        // Check if there are no more than 2 nodes for each parent node
+        if (nodes.length > 1){
+            alert("Max amount of nodes reached for parent node")
+            return
+        }
 
         // Make new node
         var new_node = make_new_node();
@@ -78,11 +113,10 @@ function add_node(){
 function delete_level_below(){
     try{
         // Find next level (one to delete)
-        var parent_containter = document.getElementById('tree-container');
         var next_level = document.getElementById(String(current_level_id+1));
 
         // Delete node
-        parent_containter.removeChild(next_level);
+        tree_container.removeChild(next_level);
 
     } catch (error){
         alert("No level found to delete");
@@ -111,3 +145,4 @@ function delete_node(){
 }
 
 check_current_level()
+check_current_node()
